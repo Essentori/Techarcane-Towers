@@ -2,35 +2,29 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
-    private Slider healthSlider;
-    private HealthLogic healthLogic;
+    private Slider _healthSlider;
+    private HealthLogic _healthLogic;
 
-    private Transform mainCameraTransform;
+    private Transform _mainCameraTransform;
 
     void Start()
     {
-        healthSlider = GetComponentInChildren<Slider>();
-        healthLogic = GetComponentInParent<HealthLogic>();
-        mainCameraTransform = Camera.main.transform;
+        _healthSlider = GetComponentInChildren<Slider>();
+        _healthLogic = GetComponentInParent<HealthLogic>();
+        _mainCameraTransform = Camera.main.transform;
 
-        if (healthLogic != null)
+        if (_healthLogic != null)
         {
-            healthLogic.onHealthChanged.AddListener(UpdateHealthBar);
+            _healthLogic.OnHealthChanged.AddListener(UpdateHealthBar);
 
-            healthSlider.maxValue = 1f;
-            healthSlider.value = 1f;
+            _healthSlider.maxValue = 1f;
+            _healthSlider.value = 1f;
         }
         GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
-    void LateUpdate()
-    {
-        if (mainCameraTransform != null)
-        {
-            transform.LookAt(transform.position + mainCameraTransform.forward);
-        }
-    }
+    void LateUpdate() => transform.LookAt(transform.position + _mainCameraTransform.forward);
 
-    private void UpdateHealthBar(float currentHealth, float maxHealth) => healthSlider.value = currentHealth / maxHealth;
+    private void UpdateHealthBar(float currentHealth, float maxHealth) => _healthSlider.value = currentHealth / maxHealth;
 
 }

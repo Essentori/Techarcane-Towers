@@ -1,53 +1,38 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    private Transform target;
-
+    public NavMeshAgent Agent;
+    private Transform _destination;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        Agent = GetComponent<NavMeshAgent>();
 
-        if (!agent.isOnNavMesh)
+        if (!Agent.isOnNavMesh)
         {
             if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 4f, NavMesh.AllAreas))
             {
                 transform.position = hit.position;
             }
         }
-        agent.radius = 0.4f;
-        agent.avoidancePriority = Random.Range(0, 100);
-        agent.obstacleAvoidanceType = (ObstacleAvoidanceType)Random.Range(1, 5);
-        agent.autoBraking = false;
-        agent.speed += Random.Range(-0.4f, 0.6f);
-
-        GameObject baseObj = GameObject.Find("DefenceTarget");
-
-        if (baseObj != null)
-        {
-            target = baseObj.transform;
-            agent.SetDestination(target.position);
-        }
+        Agent.radius = 0.4f;
+        Agent.avoidancePriority = Random.Range(0, 100);
+        Agent.obstacleAvoidanceType = (ObstacleAvoidanceType)Random.Range(1, 5);
+        Agent.autoBraking = false;
+        Agent.speed += Random.Range(-0.4f, 0.6f);
     }
-
     void Update()
     {
-        if (target != null && !agent.pathPending)
+        if (_destination == null && Agent.pathPending) return;
+        if (Agent.remainingDistance <= Agent.stoppingDistance)
         {
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-                {
-                    OnReachBase();
-                }
-            }
+            if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f) 
+                OnDestinationReach();
         }
     }
-    void OnReachBase()
+    void OnDestinationReach()
     {
         Destroy(gameObject);
     }

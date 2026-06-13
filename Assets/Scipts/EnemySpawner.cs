@@ -2,33 +2,35 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Spawner settings")]
-    public GameObject enemyPrefab;
-    public float spawnInterval = 2f;
+    [Header("Settings")]
+    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _defenceTarget;
+    [SerializeField] private Vector3 _defencePosition;
+    public float EnemySpawnInterval = 2f;
 
-    private float timer;
-    void Start() => timer = spawnInterval;
+    private float _timer;
+    void Start()
+    {
+        _timer = EnemySpawnInterval;
+        _defencePosition = _defenceTarget.transform.position;
+    }
 
     void Update()
     {
-        if ((timer += Time.deltaTime) >= spawnInterval)
+        if ((_timer += Time.deltaTime) >= EnemySpawnInterval)
         {
             SpawnEnemy();
-            timer = 0f;
+            _timer = 0f;
         }
     }
-
     void SpawnEnemy()
     {
-        if (enemyPrefab != null)
-        {
-            Vector3 randomSpawnOffset = new Vector3(
-                Random.Range(-1f, 1f),
-                0f,
-                Random.Range(-1f, 1f)
-            );
-            Vector3 spawnPosition = transform.position + randomSpawnOffset;
-            Instantiate(enemyPrefab, spawnPosition, transform.rotation);
-        }
+        Vector3 randomSpawnOffset = new Vector3(
+            Random.Range(-1f, 1f),
+            0f,
+            Random.Range(-1f, 1f));
+        Vector3 spawnPosition = transform.position + randomSpawnOffset;
+        EnemyAI spawnedEnemy = Instantiate(_enemyPrefab, spawnPosition, transform.rotation).GetComponent<EnemyAI>();
+        spawnedEnemy.Agent.SetDestination(_defencePosition);
     }
 }

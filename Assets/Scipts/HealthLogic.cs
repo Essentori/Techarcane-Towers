@@ -2,31 +2,52 @@ using UnityEngine;
 using UnityEngine.Events;
 public class HealthLogic : MonoBehaviour
 {
-    private float maxHealth = 100f;
-    private float currentHealth;
+    private float _maxHealth = 100f;
+    public float GetMaxHealth() => _maxHealth;
+    private float _currentHealth;
+    public float GetCurrentHealth() => _currentHealth;
 
-    [HideInInspector] public UnityEvent<float, float> onHealthChanged;
-    [HideInInspector] public UnityEvent onDeath;
+    [HideInInspector] public UnityEvent<float, float> OnHealthChanged;
+    [HideInInspector] public UnityEvent OnDeath;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        _currentHealth = _maxHealth;
     }
     public void TakeDamage(float damageAmount)
     {
-        if (currentHealth <= 0) return;
-
-        currentHealth -= damageAmount;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-
-        onHealthChanged?.Invoke(currentHealth, maxHealth);
-
-        if (currentHealth <= 0) Die();
+        if (_currentHealth <= 0f || damageAmount == 0) return;
+        if (damageAmount < 0f)
+        {
+            Heal(-damageAmount);
+            return;
+        }
+        UpdateHealth(-damageAmount);
+    }
+    public void Heal(float healAmount)
+    {
+        if (_currentHealth <= 0f || healAmount == 0) return;
+        if (healAmount < 0f)
+        {
+            TakeDamage(-healAmount);
+            return;
+        }
+        UpdateHealth(healAmount);
     }
 
-    private void Die()
+    private void UpdateHealth(float changeAmount)
     {
-        onDeath?.Invoke();
+        _currentHealth += changeAmount;
+        _currentHealth = Mathf.Clamp(_currentHealth, 0f, _maxHealth);
+
+        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+
+        if (_currentHealth <= 0f) Kill();
+    }
+
+    private void Kill()
+    {
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
 }

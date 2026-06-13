@@ -9,16 +9,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
   - Ground
-  - NavObstales
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Tower
+  - Player
+  - BlueprintTower
+  - BlueprintTowerSelected
+  - HostileProjectile
+  - AllyProjectile
   - 
   - 
   - 
@@ -51,4 +51,5 @@ TagManager:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
+  - IgnorDecals
   m_MigratedRenderPipelines: []
