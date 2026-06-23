@@ -6,7 +6,7 @@ public class NameRandomizer : MonoBehaviour
     private int _lettersIndex = 0;
     private string[] _prefixes = { "Prototype", "Construct", "Platform", "Specification", "Artifact", "Node", "Array" };
 
-    public void RandomizeConstructionName(IBuildable construction)
+    public string RandomizeConstructionName(string originalName)
     {
         string prefix = string.Empty;
         if (Random.value < 0.6f)
@@ -14,7 +14,7 @@ public class NameRandomizer : MonoBehaviour
             prefix = _prefixes[Random.Range(0, _prefixes.Length)] + ": "; 
         }
 
-        construction.SetName($"[{prefix}{construction.Name} {GetPostfix()}]");
+        return $"{prefix}{originalName} {GetPostfix()}";
     }
     private string GetPostfix()
     {

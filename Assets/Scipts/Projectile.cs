@@ -1,47 +1,63 @@
 using UnityEngine;
-
+public struct ProjectileData
+{
+    public Transform Target;
+    public float BaseDamage;
+    public float ModifiedDamage;
+    public DamageType DamageType;
+    public float Speed;
+    public GameObject HitEffect;
+}
 public class Projectile : MonoBehaviour
 {
-    private Transform target;
-    private float damage;
-
-    public float speed = 20f;
-    public GameObject hitEffectPrefab;
-
-    public void Initialize(Transform _target, float _damage)
+    private ProjectileData _data;
+    [SerializeField] private GameObject HitEffectPrefab;
+    private Vector3 _initialScale;
+    public void Initialize(ProjectileData data)
     {
-        target = _target;
-        damage = _damage;
+        _data = data;
+        _data.HitEffect = HitEffectPrefab;
+        _initialScale = transform.localScale;
+        ApplyDynamicScaling();
+    }
+    private void ApplyDynamicScaling()
+    {
+        if (_data.BaseDamage <= 0f) return;
+        float damageIncreasePct = (_data.ModifiedDamage - _data.BaseDamage) / _data.BaseDamage;
+        // Ratio: increase rate of damage to size (damage : size) - 1:4
+        float scaleIncreasePct = damageIncreasePct / 4f;
+        float scaleMultiplier = Mathf.Max(0.1f, 1f + scaleIncreasePct);
+        transform.localScale = _initialScale * scaleMultiplier;
     }
 
     void Update()
     {
-        if (target == null)
+        if (_data.Target == null)
         {
             Destroy(gameObject);
             return;
         }
-        Vector3 dir = target.position - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;
+        Vector3 dir = _data.Target.position - transform.position;
+        float distanceThisFrame = _data.Speed * Time.deltaTime;
         if (dir.magnitude <= distanceThisFrame)
         {
             HitTarget();
             return;
         }
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
-        transform.LookAt(target);
+        transform.LookAt(_data.Target);
     }
 
     protected virtual void HitTarget()
     {
-        HealthLogic enemyHealth = target.GetComponent<HealthLogic>();
+        HealthLogic enemyHealth = _data.Target.GetComponent<HealthLogic>();
         if (enemyHealth != null)
         {
-            enemyHealth.TakeDamage(damage);
+            enemyHealth.TakeDamage(_data.ModifiedDamage);
         }
-        if (hitEffectPrefab != null)
+        if (_data.HitEffect != null)
         {
-            Destroy(Instantiate(hitEffectPrefab, transform.position, transform.rotation), 1f);
+            Destroy(Instantiate(HitEffectPrefab, transform.position, transform.rotation), 1f);
             return;
         }
         Destroy(gameObject);

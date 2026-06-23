@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UI_TowerMenuController : UI_MenuBaseClass
+public class UI_TowerMenuController : UI_MenuBase
 {
+    // TODO: !!!FULL REMAKE ON UNITY UI CANVAS!!!
     private UIDocument _uiDocument;
     private VisualElement _menuPanel;
     private Button _powerButton;
@@ -78,9 +79,7 @@ public class UI_TowerMenuController : UI_MenuBaseClass
 
     private void UpdatePowerButtonVisual()
     {
-        if (_currentTower == null || _powerButton == null) return;
-
-        if (_currentTower.IsOperational)
+        if (_currentTower.SwitchPowerState())
         {
             _powerButton.text = "ON";
             _powerButton.style.backgroundColor = new StyleColor(new Color(0.18f, 0.8f, 0.44f));

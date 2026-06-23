@@ -1,7 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+
 public class HealthBar : MonoBehaviour
 {
+    // TODO:
+    // Add: Armor, Shields (different types), Effects (buffs and debuffs) visuals;
+    // Improve: changes feedback, optimization, visuals
+    // Change: Shows only on demand (player nearby, or looking on)
+
     private Slider _healthSlider;
     private HealthLogic _healthLogic;
 

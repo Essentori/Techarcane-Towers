@@ -4,24 +4,21 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     [Header("Menus List")]
-    [SerializeField] private UI_MenuBaseClass _mainMenu;
-    [SerializeField] private UI_TowerMenuController _towerMenu;
-    [SerializeField] private UI_TowerSelectMenu _towerSelectMenu;
+    [SerializeField] private UI_MenuBase _mainMenu;
+    [field: SerializeField] public UI_TowerMenuController TowerMenu { get; private set; }
+    [field: SerializeField] public UI_ConstructionMenu ConstructionPick { get; private set; }
 
-    private List<UI_MenuBaseClass> _openMenus = new List<UI_MenuBaseClass>();
-    public bool IsAnyMenuOpen => _openMenus.Count > 0;
+    [Header("Inventory (Sliding) Menus List")]
+    [SerializeField] private List<UI_InventoryMenuBase> _inventoryMenus = new();
 
-    public UI_TowerMenuController TowerMenu => _towerMenu;
-    public UI_TowerSelectMenu TowerSelectMenu => _towerSelectMenu;
-    void Update()
-    {
-        if (GameManager.Input.Player.Menu.triggered)
-        {
-            OnEscPressed();
-        }
-    }
+    private List<UI_MenuBase> _openMenus = new();
+    private bool _isAnyMenuOpen => _openMenus.Count > 0;
 
-    public void RegisterMenu(UI_MenuBaseClass menu)
+    private void Start() => GameManager.Instance.Player.InputHandler.OnMenuPerformed += OnMenuPressed;
+
+    private void OnDestroy() => GameManager.Instance.Player.InputHandler.OnMenuPerformed -= OnMenuPressed;
+
+    public void RegisterMenu(UI_MenuBase menu)
     {
         if (!_openMenus.Contains(menu))
         {
@@ -30,7 +27,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void UnregisterMenu(UI_MenuBaseClass menu)
+    public void UnregisterMenu(UI_MenuBase menu)
     {
         if (_openMenus.Contains(menu))
         {
@@ -39,9 +36,9 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void OnEscPressed()
+    private void OnMenuPressed()
     {
-        if (IsAnyMenuOpen)
+        if (_isAnyMenuOpen)
         {
             _openMenus[_openMenus.Count - 1].CloseMenu();
         }
@@ -56,6 +53,45 @@ public class MenuManager : MonoBehaviour
 
     private void UpdateGameState()
     {
-        GameManager.Instance.SetStateForMenu(IsAnyMenuOpen);
+        GameManager.Instance.SetStateForMenu(_isAnyMenuOpen);
+        if (_isAnyMenuOpen)
+        {
+            SetAllInventoriesState(UI_InventoryMenuBase.InventoryState.Disabled);
+        }
+        else
+        {
+            SetAllInventoriesState(UI_InventoryMenuBase.InventoryState.Collapsed);
+        }
+    }
+
+    public void CloseAllCurrentMenus()
+    {
+        if (!_isAnyMenuOpen) return;
+        foreach (var menu in _openMenus)
+        {
+            UnregisterMenu(menu);
+        }
+    }
+
+    public void SetAllInventoriesState(UI_InventoryMenuBase.InventoryState newState)
+    {
+        foreach (var inventory in _inventoryMenus)
+        {
+            if (inventory != null)
+            {
+                inventory.ChangeState(newState);
+            }
+        }
+    }
+    public void SetSpecificInventoryState<T>(UI_InventoryMenuBase.InventoryState newState) where T : UI_InventoryMenuBase
+    {
+        foreach (var inventory in _inventoryMenus)
+        {
+            if (inventory is T)
+            {
+                inventory.ChangeState(newState);
+                break;
+            }
+        }
     }
 }

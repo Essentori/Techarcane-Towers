@@ -3,9 +3,12 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public NavMeshAgent Agent;
+    [HideInInspector] public NavMeshAgent Agent;
     private Transform _destination;
 
+    // TODO: Move global reference to another script
+    [Header("References")]
+    [SerializeField] private GameObject _carriesDropEffectPrefab;
     void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
@@ -17,6 +20,7 @@ public class EnemyAI : MonoBehaviour
                 transform.position = hit.position;
             }
         }
+        // TODO: Enemies "smartening" progression
         Agent.radius = 0.4f;
         Agent.avoidancePriority = Random.Range(0, 100);
         Agent.obstacleAvoidanceType = (ObstacleAvoidanceType)Random.Range(1, 5);
@@ -36,4 +40,10 @@ public class EnemyAI : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    public void SetDropGlow(bool active)
+    {
+        if (_carriesDropEffectPrefab != null)
+            _carriesDropEffectPrefab.SetActive(active);
+    }
+
 }

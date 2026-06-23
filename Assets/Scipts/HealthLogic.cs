@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.Events;
+
 public class HealthLogic : MonoBehaviour
 {
+    // TODO: Rename, Armor, Shields (different types), Effects (buffs, debuffs, DoTs, and etc)
     private float _maxHealth = 100f;
     public float GetMaxHealth() => _maxHealth;
     private float _currentHealth;
     public float GetCurrentHealth() => _currentHealth;
 
-    [HideInInspector] public UnityEvent<float, float> OnHealthChanged;
-    [HideInInspector] public UnityEvent OnDeath;
+    public UnityEvent<float, float> OnHealthChanged;
+    public UnityEvent OnDeath;
 
     void Start()
     {

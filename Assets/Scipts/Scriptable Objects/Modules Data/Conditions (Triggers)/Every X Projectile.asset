@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f917c65cb1600df498db66477c902f9f, type: 3}
+  m_Name: Every X Projectile
+  m_EditorClassIdentifier: Assembly-CSharp::ModuleConditionType
+  ID: c_every_projectile
+  ModuleName: Every X Projectiles
+  Tier: 1
+  Type: 0
+  MinValueX: 3
+  MaxValueX: 3
+  BaseActionSlots: 1

@@ -15,11 +15,11 @@ TagManager:
   - Ground
   - Tower
   - Player
-  - BlueprintTower
-  - BlueprintTowerSelected
+  - TowerRangeIndicator
+  - BlueprintConstruction
   - HostileProjectile
   - AllyProjectile
-  - 
+  - Pickup
   - 
   - 
   - 
@@ -52,4 +52,5 @@ TagManager:
   - Light Layer 6
   - Light Layer 7
   - IgnorDecals
+  - Outlined
   m_MigratedRenderPipelines: []

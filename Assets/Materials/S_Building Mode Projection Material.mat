@@ -42,9 +42,13 @@ Material:
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
     - _DrawOrder: 0
+    - _IsValid: 0
     - _Pulsing_Speed: 3
     - _Ring_Size: 0.05
+    - _Unscaled_Time: 108.65515
     m_Colors:
+    - _Can_Build_Color: {r: 0.97205967, g: 1, b: 0, a: 1}
+    - _Cant_Build_Color: {r: 1, g: 0.26981127, b: 0.26981127, a: 1}
     - _Projection_Color: {r: 0.97205967, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

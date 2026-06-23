@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3366742892614265130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2942708483231269638}
+  - component: {fileID: 6948501590252266028}
+  - component: {fileID: 6511644173270956241}
+  m_Layer: 9
+  m_Name: Range Indicatior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2942708483231269638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366742892614265130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4070998828259234714}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6948501590252266028
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366742892614265130}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6511644173270956241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366742892614265130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e2e5968ad24554d9acd1d8a88b1c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _parentTower: {fileID: 0}
 --- !u!1 &5570229001068642147
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,14 +96,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5570229001068642147}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5060341, y: 0.4682439, z: 0.52985626, w: 0.4938922}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 2.0000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1414200971421973627}
   m_Father: {fileID: 3642443817242598325}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
 --- !u!114 &3598723456086173648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2486,7 +2553,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4070998828259234714}
-  - component: {fileID: 6416490903957691090}
+  - component: {fileID: -8569330884831802129}
+  - component: {fileID: 7709577402512917828}
+  - component: {fileID: 7907838014557824706}
+  - component: {fileID: -7028461821716998868}
+  - component: {fileID: 7863213299752633658}
   m_Layer: 7
   m_Name: Light Turret
   m_TagString: Untagged
@@ -2509,9 +2580,10 @@ Transform:
   m_Children:
   - {fileID: 7423214136187090469}
   - {fileID: 3642443817242598325}
+  - {fileID: 2942708483231269638}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6416490903957691090
+--- !u!114 &-8569330884831802129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2522,20 +2594,96 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00c4e52b2e2e5cb4b97eb9f83ee03f65, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::TurretTypeTower
   _towerName: Light Turret
-  _isOperational: 1
-  _range: 15
-  _rangeIndicator: {fileID: 0}
-  _fireRate: 4
-  _damage: 5
+  <Description>k__BackingField: Fires projectiles. Quick but weak.
+  _rangeCollider: {fileID: 6948501590252266028}
+  <ConstructonBase>k__BackingField: {fileID: 7138292431845142622}
+  _damageType: 0
+  _attackType: 0
   _targetPriority: 0
+  _targetsAmount: 1
+  _stats: {fileID: 11400000, guid: a10bcd22125cc8d47ac99c6a08345b04, type: 2}
+  DamageMultiplier: 1
+  DamageFlatBonus: 0
+  RangeMultiplier: 1
+  RangeFlatBonus: 0
+  FireRateMultiplier: 1
+  FireRateFlatBonus: 0
   _partToRotate: {fileID: 3642443817242598325}
-  _turnSpeed: 10
+  _turnSpeed: 15
+  _rotationUpMaxAngle: 45
+  _rotationDownMaxAngle: -45
+  _projectilePrefab: {fileID: 1414023407511888924, guid: 1c63dd17bd7140c40aecfc0200f8d0b7, type: 3}
   _firePoint: {fileID: 1414200971421973627}
-  _projectilePrefab: {fileID: 6908936569361130992, guid: 1c63dd17bd7140c40aecfc0200f8d0b7, type: 3}
-  _attackConeAngle: 10
-  _isAoE: 0
+  _attackConeAngle: 15
+  _projectileSpeed: 20
+--- !u!114 &7709577402512917828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030059703058905799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6db548ed345d478df17e91828e884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlueprintStateController
+  Type: 0
+  ManaCost: 20
+  ResourceCosts:
+  - Type: 0
+    Amount: 100
+  - Type: 1
+    Amount: 50
+  - Type: 2
+    Amount: 30
+  _radiusMargin: 0.5
+  _pushDistanceMargin: 2
+--- !u!114 &7907838014557824706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030059703058905799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d175ccc90ace649bddc06bfa01c35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &-7028461821716998868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030059703058905799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ad0d1de4fd7d498aa8153fe791069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _testConditionBlueprint: {fileID: 11400000, guid: 6f08610335570f246ba5aeed32a6df7e, type: 2}
+  _testActionBlueprint: {fileID: 11400000, guid: bcdc2c80a0a02e34680349b7748913f6, type: 2}
+--- !u!114 &7863213299752633658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030059703058905799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf631a596e3112c4b82373103a5260d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _feedbackParticlePrefab: {fileID: 1780526868420219939, guid: 2fb541b436891fe4bb3b27f1bb18051c, type: 3}
+  _spawnPoint: {fileID: 1414200971421973627}
+  _towerRenderer: {fileID: 1316511951320881754}
+  _flashColor: {r: 0, g: 1, b: 1, a: 1}
+  _flashDuration: 0.1
 --- !u!1 &8549335552881341054
 GameObject:
   m_ObjectHideFlags: 0

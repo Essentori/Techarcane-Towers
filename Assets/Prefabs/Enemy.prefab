@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2704068453322323446}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 7410903049733410277}
   - component: {fileID: 8930687883636059936}
   - component: {fileID: 1761982256861454408}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 3449576696572397097}
   - component: {fileID: 3232927929540067445}
   - component: {fileID: 7077863715550944487}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,6 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Agent: {fileID: 8000087998352896571}
+  _dropGlowEffect: {fileID: 1394723521446050573, guid: 1fb9cdefb844f8e49b37993d11cea49c, type: 3}
 --- !u!114 &7718157452480364860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,7 +549,7 @@ GameObject:
   - component: {fileID: 1206282811919099511}
   - component: {fileID: 1015221448023834352}
   - component: {fileID: 5552463431206255770}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +623,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6643928173871772090}
   - component: {fileID: 182905989523070679}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health Bar Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
